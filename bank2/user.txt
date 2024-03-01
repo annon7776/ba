@@ -1,0 +1,41 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if both username and password are provided
+    if(isset($_POST["username"]) && isset($_POST["password"])) {
+        // Get username and password from POST data
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+
+        // Check if user.txt file exists
+        $file = 'user.txt';
+        if(!file_exists($file)) {
+            // If file doesn't exist, create it and write user's information
+            file_put_contents($file, $username . ":" . $password);
+            echo "User registered successfully!";
+        } else {
+            echo "User.txt file already exists!";
+        }
+    } else {
+        echo "Both username and password are required!";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to CBO</title>
+</head>
+<body>
+    <h1>Login to Central Bank of Oman</h1>
+    <form action="welcome.php" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
